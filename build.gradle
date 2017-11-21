@@ -1,0 +1,9 @@
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = 'model.Schedule'
+dependencies {
+  compile 'com.github.sarxos:exchange-rates-api:0.2'
+}
+repositories {
+  mavenCentral()
+}
