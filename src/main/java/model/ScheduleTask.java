@@ -2,15 +2,15 @@ package model;
 
 import java.util.ArrayList;
 
-public class Task {
+public class ScheduleTask {
 	
 	private String name;
 	private int effort;
 	private int people;
-	private ArrayList<Task> requiredBefore;
+	private ArrayList<ScheduleTask> requiredBefore;
 	private ArrayList<Skills> requiredSkills;
 	
-	public Task(String name, int effort, int people, ArrayList<Task> rB, ArrayList<Skills> rS){
+	public ScheduleTask(String name, int effort, int people, ArrayList<ScheduleTask> rB, ArrayList<Skills> rS){
 		this.setName(name);
 		this.setEffort(effort);
 		this.setPeople(people);
@@ -42,11 +42,11 @@ public class Task {
 		this.people = people;
 	}
 
-	public ArrayList<Task> getRequiredBefore() {
+	public ArrayList<ScheduleTask> getRequiredBefore() {
 		return requiredBefore;
 	}
 
-	public void setRequiredBefore(ArrayList<Task> requiredBefore) {
+	public void setRequiredBefore(ArrayList<ScheduleTask> requiredBefore) {
 		this.requiredBefore = requiredBefore;
 	}
 

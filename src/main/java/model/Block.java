@@ -4,27 +4,23 @@ import java.util.ArrayList;
 
 public class Block {
 	
-	private Task task;
+	private ScheduleTask task;
 	private int start;
 	private int end;
 	private ArrayList<Person> people;
 	
-	
-	
-	public Block(Task t, int s, int e, ArrayList<Person> p){
+	public Block(ScheduleTask t, int s, int e, ArrayList<Person> p){
 		this.setTask(t);
 		this.setStart(s);
 		this.setEnd(e);
 		this.setPeople(p);
 	}
 
-
-
-	public Task getTask() {
+	public ScheduleTask getTask() {
 		return task;
 	}
 
-	public void setTask(Task task) {
+	public void setTask(ScheduleTask task) {
 		this.task = task;
 	}
 
