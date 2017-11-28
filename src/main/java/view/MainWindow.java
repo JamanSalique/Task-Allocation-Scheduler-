@@ -34,7 +34,6 @@ public class MainWindow extends JFrame implements Observer{
 	
 	private FrameModel model;
 	private ButtonListener buttonListener;
-//	private ComboBoxListener itemListener;	
 	
 	private CreateTaskView createTask;
 	private JPanel createPerson;
@@ -139,6 +138,10 @@ public class MainWindow extends JFrame implements Observer{
 		}
 	}
 	
+	/**
+	 * Main method starts program
+	 * @throws InterruptedException, IOException
+	 */
 	public static void main(String[] args) throws InterruptedException, IOException{
 		
 		//create a new instance of each one.
