@@ -14,8 +14,7 @@ public class ButtonListener implements ActionListener{
 	}
 
 	/**
-	 * Checks the action command of the button that has been pressed, using switch statements.
-	 * It then calls methods from the model or the ripley model (depending in the button).
+	 *@param ActionEvent e
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
