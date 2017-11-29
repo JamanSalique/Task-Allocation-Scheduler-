@@ -12,9 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import assessment.model.Model;
-import assessment.model.RipleyModel;
-import assessment.view.MainWindow;
 import control.ButtonListener;
 import model.FrameModel;
 
@@ -128,7 +125,6 @@ public class MainWindow extends JFrame implements Observer{
 				currentCenterPanelIndex--;
 				centerPanelLayout.show(currentCenterPanel, "" + currentCenterPanelIndex);
 			}
-			break;
 		//counting up the array storing the panels	
 		case 2:
 			if (currentCenterPanelIndex != 3){
