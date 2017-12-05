@@ -9,21 +9,25 @@ public class Schedule {
 	
 	private ArrayList<Block> blocks;
 	
+	public ArrayList<Block> getBlocks(){
+		return blocks;
+	}
+	
 	/**
 	 * Main constructor, takes a List of Tasks, and a List of people, and stores a list of schedule blocks
-	 * @param tasks : List of tasks to be included in the schedule
-	 * @param people : List of people to be included in the schedule
+	 * @param ArrayList<Task> tasks : List of tasks to be included in the schedule
+	 * @param ArrayList<Person> people : List of people to be included in the schedule
 	 */
-	public Schedule(ArrayList<Task> tasks, ArrayList<Person> people){
+	public Schedule(ArrayList<ScheduleTask> tasks, ArrayList<Person> people){
 		this.blocks = getSchedule(tasks, people);
 	}
 	
 	/**
-	 * @param task : task to check
-	 * @param blocks : blocks to check from
-	 * @return true if a given task is scheduled in a given list of blocks, false otherwise
+	 * @param ScheduleTask task : task to check
+	 * @param ArrayList<Block> blocks : blocks to check from
+	 * @return Returns true if a given task is scheduled in a given list of blocks, false otherwise
 	 */
-	public boolean isScheduled(ArrayList<Block> blocks, Task task){
+	public boolean isScheduled(ArrayList<Block> blocks, ScheduleTask task){
 		for(Block b : blocks){
 			if(b.getTask().equals(task))
 				return true;
@@ -32,13 +36,13 @@ public class Schedule {
 	}
 	
 	/**
-	 * @param b : The list of blocks to check from
-	 * @param t : The task for which the constraint is being verified
+	 * @param ArrayList<Block> b : The list of blocks to check from
+	 * @param ScheduleTask t : The task for which the constraint is being verified
 	 * @return true if all necessary tasks are done for t to be scheduled, false otherwise
 	 */
-	public boolean areTasksDone(ArrayList<Block> b, Task t){
+	public boolean areTasksDone(ArrayList<Block> b, ScheduleTask t){
 		if(t.getRequiredBefore() != (null)){
-			for(Task toDo : t.getRequiredBefore()){
+			for(ScheduleTask toDo : t.getRequiredBefore()){
 				if(!isScheduled(b, toDo))
 					return false;
 			}
@@ -48,11 +52,11 @@ public class Schedule {
 	
 	/**
 	 * Gets all possible teams of people which could work on a given task
-	 * @param task : task for which possible teams are returned
-	 * @param people : people that constitute the total pool of workers that could work on the task
+	 * @param ScheduleTask task : task for which possible teams are returned
+	 * @param ArrayList<Person> : people that constitute the total pool of workers that could work on the task
 	 * @return the list of all possible teams for a task, which contain all the required skills for that task
 	 */
-	public ArrayList<ArrayList<Person>> getPossibleTeams(Task task, ArrayList<Person> people){
+	public ArrayList<ArrayList<Person>> getPossibleTeams(ScheduleTask task, ArrayList<Person> people){
 		
         ArrayList<ArrayList<Person>> possibleTeams = combination(new ArrayList<ArrayList<Person>>(), people, new ArrayList<Person>(), 0, 0, task.getPeople());
         ArrayList<ArrayList<Person>> toReturn = new ArrayList<ArrayList<Person>>();
@@ -77,12 +81,12 @@ public class Schedule {
 	
 	/**
 	 * Recursive method which computes combinations
-	 * @param combinations : Keeps track of all current combinations
-	 * @param arr : List that contains the elements that can be included in each combination
-	 * @param data : List that contains the latest combination
-	 * @param start : Keeps track of the start index 
-	 * @param index : Keeps track of the current index
-	 * @param r int : Size of each combination
+	 * @param ArrayList<ArrayList<T>> combinations : Keeps track of all current combinations
+	 * @param ArrayList<T> arr : List that contains the elements that can be included in each combination
+	 * @param ArrayList<T> data : List that contains the latest combination
+	 * @param int start : Keeps track of the start index 
+	 * @param int index : Keeps track of the current index
+	 * @param int r: Size of each combination
 	 */
 	public static <T> ArrayList<ArrayList<T>> combination(ArrayList<ArrayList<T>> combinations, ArrayList<T> arr, ArrayList<T> data, int start, int index, int r){
 		int end = arr.size() - 1;
@@ -97,18 +101,18 @@ public class Schedule {
 	}
 	
 	/** 
-	 * @param input : A list of possible teams per task
-	 * @return a list of of all possible combinations of teams per task
+	 * @param HashMap<Task, ArrayList<ArrayList<Person>>> input : A list of possible teams per task
+	 * @return ArrayList<HashMap<Task, ArrayList<Person>>> : Returns a list of of all possible combinations of teams per task
 	 */
-	public ArrayList<HashMap<Task, ArrayList<Person>>> getTeamCombinations(HashMap<Task, ArrayList<ArrayList<Person>>> input){
+	public ArrayList<HashMap<ScheduleTask, ArrayList<Person>>> getTeamCombinations(HashMap<ScheduleTask, ArrayList<ArrayList<Person>>> input){
 		
-		ArrayList<HashMap<Task, ArrayList<Person>>> ret = new ArrayList<HashMap<Task, ArrayList<Person>>>();	
+		ArrayList<HashMap<ScheduleTask, ArrayList<Person>>> ret = new ArrayList<HashMap<ScheduleTask, ArrayList<Person>>>();	
 		
 		//Keeps track of which iteration we are through for each task
-		HashMap<Task, Integer> iteration = new HashMap<Task, Integer>();
-		HashMap<Task, Integer> finalIt = new HashMap<Task, Integer>();
+		HashMap<ScheduleTask, Integer> iteration = new HashMap<ScheduleTask, Integer>();
+		HashMap<ScheduleTask, Integer> finalIt = new HashMap<ScheduleTask, Integer>();
 		
-		for(Task t : input.keySet()){
+		for(ScheduleTask t : input.keySet()){
 			finalIt.put(t, input.get(t).size()-1);
 			iteration.put(t, 0);
 		}
@@ -116,8 +120,8 @@ public class Schedule {
 		
 		while(!iteration.equals(finalIt)){
 			
-			HashMap<Task, ArrayList<Person>> cur = new HashMap<Task, ArrayList<Person>>();
-			for(Task t : input.keySet()){
+			HashMap<ScheduleTask, ArrayList<Person>> cur = new HashMap<ScheduleTask, ArrayList<Person>>();
+			for(ScheduleTask t : input.keySet()){
 				cur.put(t, input.get(t).get(iteration.get(t)));
 			}
 			ret.add(cur);
@@ -129,19 +133,19 @@ public class Schedule {
 	
 	/**
 	 * Given a list of possible teams for each task, this method chooses the combination of tasks which maximizes the number of workers
-	 * @param input : Map containing a list of possible teams for each task
+	 * @param HashMap<Task, ArrayList<ArrayList<Person>>> input : Map containing a list of possible teams for each task
 	 */
-	public HashMap<Task, ArrayList<Person>> getTeams(HashMap<Task, ArrayList<ArrayList<Person>>> input){
+	public HashMap<ScheduleTask, ArrayList<Person>> getTeams(HashMap<ScheduleTask, ArrayList<ArrayList<Person>>> input){
 		
-		ArrayList<HashMap<Task, ArrayList<Person>>> possibleCombinations = getTeamCombinations(input);
-		HashMap<Task, ArrayList<Person>> bestCombination = null;
+		ArrayList<HashMap<ScheduleTask, ArrayList<Person>>> possibleCombinations = getTeamCombinations(input);
+		HashMap<ScheduleTask, ArrayList<Person>> bestCombination = null;
 		int number = 0;
 		
-		for(HashMap<Task, ArrayList<Person>> cur : possibleCombinations){
+		for(HashMap<ScheduleTask, ArrayList<Person>> cur : possibleCombinations){
 			
 			ArrayList<Person> allPeople = new ArrayList<Person>();
 			
-			for(Task t : cur.keySet()){
+			for(ScheduleTask t : cur.keySet()){
 				for(Person p : cur.get(t)){
 					if(!allPeople.contains(p)){
 						allPeople.add(p);
@@ -159,9 +163,9 @@ public class Schedule {
 	
 	
 	
-	public HashMap<Task, Integer> incrementMap (HashMap<Task, ArrayList<ArrayList<Person>>> mainMap, HashMap<Task, Integer> toIncrement){
+	public HashMap<ScheduleTask, Integer> incrementMap (HashMap<ScheduleTask, ArrayList<ArrayList<Person>>> mainMap, HashMap<ScheduleTask, Integer> toIncrement){
 		
-		for(Task t : mainMap.keySet()){
+		for(ScheduleTask t : mainMap.keySet()){
 			if(toIncrement.get(t) < mainMap.get(t).size() - 1){
 				toIncrement.put(t, toIncrement.get(t) + 1);
 				mainMap.keySet().stream().skip(1);
@@ -175,15 +179,15 @@ public class Schedule {
 	
 	/**
 	 * Method which schedules each block given a map of task and their corresponding teams, such that tasks cannot be scheduled simultaneously if they have team members in common
-	 * @param teams : Map containing each task and their team
-	 * @param currentTime : time from which the tasks can be scheduled 
+	 * @param HashMap<Task, ArrayList<Person>> teams : Map containing each task and their team
+	 * @param int currentTime : time from which the tasks can be scheduled 
 	 */
-	public ArrayList<Block> getBlocksFromTeams(HashMap<Task, ArrayList<Person>> teams, int currentTime){
+	public ArrayList<Block> getBlocksFromTeams(HashMap<ScheduleTask, ArrayList<Person>> teams, int currentTime){
 		
 		
 		ArrayList<Block> ret = new ArrayList<Block>();
 		
-		for(Task t : teams.keySet()){
+		for(ScheduleTask t : teams.keySet()){
 			int lowestStart = currentTime;
 			int lowestEnd = currentTime + t.getEffort();
 			
@@ -224,29 +228,23 @@ public class Schedule {
 	//Constraint 2: Skills in a task (done)
 	//Constraint 3: previous tasks needed to be done (done)
 	
-	//To minimise time;
-	// 1) Scan through all tasks that can currently be done
-	// 2) For each task, get a list of possible teams that could work on that task (from getPeopleForTask) to get Map(<Task>, ArrayList<ArrayList<Person>>)
-	// 3) Find the combination of teams which maximises the number of different people working to get Map(<Task>, ArrayList<Person>) (Heuristic)
-	// 4) Iterate through the map and schedule all tasks simultaneously
-
-	public ArrayList<Block> getSchedule(ArrayList<Task> tasks, ArrayList<Person> people){
+	public ArrayList<Block> getSchedule(ArrayList<ScheduleTask> tasks, ArrayList<Person> people){
 		
-		ArrayList<Task> inputCopy = tasks;
+		ArrayList<ScheduleTask> inputCopy = tasks;
 		ArrayList<Block> toReturn = new ArrayList<Block>();
 		int time = 0;
 		boolean keepGoing = true;
 		int ii = 0;
 		while(inputCopy.size() != 0 && keepGoing){
 			keepGoing = false;
-			HashMap<Task, ArrayList<ArrayList<Person>>> possibleTeamsPerTask = new HashMap<Task, ArrayList<ArrayList<Person>>>();
+			HashMap<ScheduleTask, ArrayList<ArrayList<Person>>> possibleTeamsPerTask = new HashMap<ScheduleTask, ArrayList<ArrayList<Person>>>();
 			ArrayList<Integer> toRemove = new ArrayList<Integer>();
 			for(int i = 0; i < inputCopy.size(); i++){
 				if(areTasksDone(toReturn, inputCopy.get(i))){
 					ArrayList<ArrayList<Person>> teams =  getPossibleTeams(inputCopy.get(i), people);
 
 					if(teams.size() != 0){
-						System.out.println(ii + " : " + inputCopy.size() + " : " + inputCopy.get(i).getName());
+						//System.out.println(ii + " : " + inputCopy.size() + " : " + inputCopy.get(i).getName());
 						possibleTeamsPerTask.put(inputCopy.get(i), teams);
 						keepGoing = true;
 						inputCopy.remove(i);
@@ -255,7 +253,7 @@ public class Schedule {
 			}
 			
 
-			HashMap<Task, ArrayList<Person>> bestTeamPerTask = getTeams(possibleTeamsPerTask);
+			HashMap<ScheduleTask, ArrayList<Person>> bestTeamPerTask = getTeams(possibleTeamsPerTask);
 
 			ArrayList<Block> newBlocks = getBlocksFromTeams(bestTeamPerTask, time);
 
@@ -271,23 +269,23 @@ public class Schedule {
 		return toReturn;
 	}
 	
-	
+	//To minimise time;
+	// 1) Scan through all tasks that can currently be done
+	// 2) For each task, get a list of possible teams that could work on that task (from getPeopleForTask) to get Map(<Task>, ArrayList<ArrayList<Person>>)
+	// 3) Find the combination of teams which maximises the number of different people working to get Map(<Task>, ArrayList<Person>)
+	// 4) Iterate through the map and schedule all tasks simultaneously
 	
 	public static void main(String args[]){
-		ArrayList<Integer> arr = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5));
-        int r = 2;
-        int n = arr.size();
-        ArrayList<Integer> data = new ArrayList<Integer>();
-     
-        Task t2 = new Task("2", 4, 3, null, new ArrayList<Skills>());
-        Task t1 = new Task("1", 3, 3, null, new ArrayList<Skills>(Arrays.asList(Skills.CPlus, Skills.CSS, Skills.dotNet)));
-        Task t3 = new Task("3", 2, 2, null, new ArrayList<Skills>(Arrays.asList(Skills.dotNet)));
-        Task t4 = new Task("4", 2, 3, null, new ArrayList<Skills>());
-        Task t5 = new Task("5", 6, 3, null, new ArrayList<Skills>());
-        Task t6 = new Task("6", 4, 3, null, new ArrayList<Skills>());
-        Task t7 = new Task("7", 4, 3, null, new ArrayList<Skills>());
+		
+        ScheduleTask t2 = new ScheduleTask("2", 4, 3, null, new ArrayList<Skills>());
+        ScheduleTask t1 = new ScheduleTask("1", 3, 3, null, new ArrayList<Skills>(Arrays.asList(Skills.CPlus, Skills.CSS, Skills.dotNet)));
+        ScheduleTask t3 = new ScheduleTask("3", 2, 2, null, new ArrayList<Skills>(Arrays.asList(Skills.dotNet)));
+        ScheduleTask t4 = new ScheduleTask("4", 2, 3, null, new ArrayList<Skills>());
+        ScheduleTask t5 = new ScheduleTask("5", 6, 3, null, new ArrayList<Skills>());
+        ScheduleTask t6 = new ScheduleTask("6", 4, 3, null, new ArrayList<Skills>());
+        ScheduleTask t7 = new ScheduleTask("7", 4, 3, null, new ArrayList<Skills>());
 
-        ArrayList<Task> tasks = new ArrayList<Task>(Arrays.asList(t1,t2,t3, t4, t5, t6, t7));
+        ArrayList<ScheduleTask> tasks = new ArrayList<ScheduleTask>(Arrays.asList(t1,t2,t3, t4, t5, t6, t7));
 
         Person one = new Person("1", new ArrayList<Skills>(Arrays.asList(Skills.dotNet)));
         Person two = new Person("2",  new ArrayList<Skills>(Arrays.asList(Skills.CPlus)));
@@ -295,8 +293,8 @@ public class Schedule {
         Person four = new Person("4",  new ArrayList<Skills>(Arrays.asList(Skills.CSS)));
         Person five = new Person("5", null);
         Person six = new Person("6", null);
-        ArrayList<Person> team = new ArrayList<Person>(Arrays.asList(one, two, three, four, five, six));
         
+        ArrayList<Person> team = new ArrayList<Person>(Arrays.asList(one, two, three, four, five, six));
         ArrayList<Block> schedule = new Schedule(tasks, team).blocks;
         
         for(Block b : schedule){

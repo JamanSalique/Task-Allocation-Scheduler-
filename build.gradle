@@ -1,8 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'application'
-mainClassName = 'model.Schedule'
+mainClassName = 'view.GanttChartGUI'
 dependencies {
-  compile 'com.github.sarxos:exchange-rates-api:0.2'
+  compile group: 'org.jfree', name: 'jfreechart', version: '1.0.19'
 }
 repositories {
   mavenCentral()
