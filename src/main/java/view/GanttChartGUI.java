@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -28,15 +29,13 @@ import model.Block;
 
 //dependencies -- TaskNumeric and GanttChartFactory classes.
 // If we remove them the Chart will work awfully with numbers instead of an actual date.
-public class GanttChartGUI extends ApplicationFrame {
+public class GanttChartGUI extends JPanel {
 
-	
+    
     public GanttChartGUI(String s) {
-        super(s);
-        JPanel jpanel = createDemoPanel();
-        jpanel.setPreferredSize(new Dimension(700, 500));
-        setContentPane(jpanel);
-        pack();
+        setLayout(new GridLayout());
+        add(createDemoPanel());
+        setPreferredSize(new Dimension(700, 500));
         setVisible(true);
     }
 
@@ -53,7 +52,7 @@ public class GanttChartGUI extends ApplicationFrame {
         TaskSeries inProgress = new TaskSeries("In Progress");       
 
         for(Block b : Control.instance().getSchedule().getBlocks()) {
-        		inProgress.add(new TaskNumeric(b.getTask().getName(), b.getStart(), b.getEnd()));
+                inProgress.add(new TaskNumeric(b.getTask().getName(), b.getStart(), b.getEnd()));
         }
         
         TaskSeriesCollection taskseriescollection = new TaskSeriesCollection();
@@ -80,9 +79,9 @@ public class GanttChartGUI extends ApplicationFrame {
         
         // We have to override the BaseItemLabelGenerator in order to write on the time periods.
         renderer.setBaseItemLabelGenerator( new CategoryItemLabelGenerator(){
-        	
-        	
-        	//has to be overridden
+            
+            
+            //has to be overridden
             @Override
             public String generateRowLabel(CategoryDataset dataset, int row) {
                 return "Your Row Text  " + row;
@@ -98,7 +97,7 @@ public class GanttChartGUI extends ApplicationFrame {
             @Override
             public String generateLabel(CategoryDataset dataset, int row, int column) {
                 return Control.instance().getSchedule().getBlocks().get(column).getPeople().toString();
-            //	return dayShift.get(column) +  "," + nightShift.get(column);
+            //  return dayShift.get(column) +  "," + nightShift.get(column);
             }
 
 
@@ -110,9 +109,9 @@ public class GanttChartGUI extends ApplicationFrame {
     }
 
     public static void main(String args[]) {
-    		Control.instantiate();
+        Control.instantiate();
         GanttChartGUI ganttdemo = new GanttChartGUI("Planning App");
-        RefineryUtilities.centerFrameOnScreen(ganttdemo);
+       // RefineryUtilities.centerFrameOnScreen(ganttdemo);
     }
 
 }
