@@ -33,7 +33,7 @@ public class MainWindow extends JFrame implements Observer{
 	private ButtonListener buttonListener;
 	
 	private CreateTaskView createTask;
-	private CreatePersonView createPerson;
+	private CreatePeopleView createPerson;
 	private JPanel schedule;
 	
 	private static int currentCenterPanelIndex;
