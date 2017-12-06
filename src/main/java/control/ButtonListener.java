@@ -8,9 +8,21 @@ import model.FrameModel;
 public class ButtonListener implements ActionListener{
 	
 	private FrameModel model;
+	private ScheduleTask task;
 	
+	/**
+	 * Constructor for Main Window
+	 * @param FrameModel
+	 */
 	public ButtonListener(FrameModel model){
 		this.model = model;
+	}
+	
+	/**
+	 * Constructor for Creating a new task
+	 */
+	public ButtonListener(ScheduleTask task){
+		this.task = task;
 	}
 
 	/**
@@ -21,11 +33,8 @@ public class ButtonListener implements ActionListener{
 		switch (e.getActionCommand()){
 		case "move left":
 			model.moveLeft();
-			break;
 		case "move right":
 			model.moveRight();
-			break;
-		}
 	}
 
 }

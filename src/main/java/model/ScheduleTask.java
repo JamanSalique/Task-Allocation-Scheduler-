@@ -9,7 +9,7 @@ public class ScheduleTask {
 	private int people;
 	private ArrayList<ScheduleTask> requiredBefore;
 	private ArrayList<Skills> requiredSkills;
-	
+		
 	public ScheduleTask(String name, int effort, int people, ArrayList<ScheduleTask> rB, ArrayList<Skills> rS){
 		this.setName(name);
 		this.setEffort(effort);
