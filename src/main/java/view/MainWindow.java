@@ -125,12 +125,14 @@ public class MainWindow extends JFrame implements Observer{
 				currentCenterPanelIndex--;
 				centerPanelLayout.show(currentCenterPanel, "" + currentCenterPanelIndex);
 			}
+				break;
 		//counting up the array storing the panels	
 		case 2:
 			if (currentCenterPanelIndex != 3){
 				currentCenterPanelIndex++;
 				centerPanelLayout.show(currentCenterPanel, "" + currentCenterPanelIndex);
 			}
+				break;
 		}
 	}
 	
