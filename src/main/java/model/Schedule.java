@@ -118,15 +118,14 @@ public class Schedule {
 		}
 		
 		
-		while(!iteration.equals(finalIt)){
-			
+		do{
 			HashMap<ScheduleTask, ArrayList<Person>> cur = new HashMap<ScheduleTask, ArrayList<Person>>();
 			for(ScheduleTask t : input.keySet()){
 				cur.put(t, input.get(t).get(iteration.get(t)));
 			}
 			ret.add(cur);
 			iteration = incrementMap(input, iteration);
-		}
+		}while(!iteration.equals(finalIt));
 		
 		return ret;
 	}
@@ -267,41 +266,5 @@ public class Schedule {
 		}
 
 		return toReturn;
-	}
-	
-	//To minimise time;
-	// 1) Scan through all tasks that can currently be done
-	// 2) For each task, get a list of possible teams that could work on that task (from getPeopleForTask) to get Map(<Task>, ArrayList<ArrayList<Person>>)
-	// 3) Find the combination of teams which maximises the number of different people working to get Map(<Task>, ArrayList<Person>)
-	// 4) Iterate through the map and schedule all tasks simultaneously
-	
-	public static void main(String args[]){
-		
-        ScheduleTask t2 = new ScheduleTask("2", 4, 3, null, new ArrayList<Skills>());
-        ScheduleTask t1 = new ScheduleTask("1", 3, 3, null, new ArrayList<Skills>(Arrays.asList(Skills.CPlus, Skills.CSS, Skills.dotNet)));
-        ScheduleTask t3 = new ScheduleTask("3", 2, 2, null, new ArrayList<Skills>(Arrays.asList(Skills.dotNet)));
-        ScheduleTask t4 = new ScheduleTask("4", 2, 3, null, new ArrayList<Skills>());
-        ScheduleTask t5 = new ScheduleTask("5", 6, 3, null, new ArrayList<Skills>());
-        ScheduleTask t6 = new ScheduleTask("6", 4, 3, null, new ArrayList<Skills>());
-        ScheduleTask t7 = new ScheduleTask("7", 4, 3, null, new ArrayList<Skills>());
-
-        ArrayList<ScheduleTask> tasks = new ArrayList<ScheduleTask>(Arrays.asList(t1,t2,t3, t4, t5, t6, t7));
-
-        Person one = new Person("1", new ArrayList<Skills>(Arrays.asList(Skills.dotNet)));
-        Person two = new Person("2",  new ArrayList<Skills>(Arrays.asList(Skills.CPlus)));
-        Person three = new Person("3", new ArrayList<Skills>(Arrays.asList(Skills.dotNet)));
-        Person four = new Person("4",  new ArrayList<Skills>(Arrays.asList(Skills.CSS)));
-        Person five = new Person("5", null);
-        Person six = new Person("6", null);
-        
-        ArrayList<Person> team = new ArrayList<Person>(Arrays.asList(one, two, three, four, five, six));
-        ArrayList<Block> schedule = new Schedule(tasks, team).blocks;
-        
-        for(Block b : schedule){
-        	System.out.println(b.toString());
-        }
-        
-	}
-	
-	
+	}	
 }
