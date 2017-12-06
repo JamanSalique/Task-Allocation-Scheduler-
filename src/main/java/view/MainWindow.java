@@ -33,10 +33,10 @@ public class MainWindow extends JFrame implements Observer{
 	private ButtonListener buttonListener;
 	
 	private CreateTaskView createTask;
-	private JPanel createPerson;
+	private CreatePersonView createPerson;
 	private JPanel schedule;
 	
-	private int currentCenterPanelIndex;
+	private static int currentCenterPanelIndex;
 	
 	private CardLayout centerPanelLayout;
 
@@ -63,8 +63,7 @@ public class MainWindow extends JFrame implements Observer{
 		schedule = new JPanel();
 		schedule.add(new JLabel("Schedule here"));
 		createTask = new CreateTaskView();
-		createPerson = new JPanel();
-		createPerson.add(new JLabel("Create person here"));
+		createPerson = new CreatePeopleView(personModel);
 
 		buttonListener = new ButtonListener(model);
 		
@@ -90,9 +89,9 @@ public class MainWindow extends JFrame implements Observer{
 		currentCenterPanel = new JPanel();
 		currentCenterPanel.setOpaque(false);
 		currentCenterPanel.setLayout(centerPanelLayout);
-		currentCenterPanel.add(schedule, "1");
+		currentCenterPanel.add(createPerson, "1");
 		currentCenterPanel.add(createTask, "2");
-		currentCenterPanel.add(createPerson, "3");
+		currentCenterPanel.add(schedule, "3");
 					
 		bottomPanel = new JPanel();
 		bottomPanel.setOpaque(false);

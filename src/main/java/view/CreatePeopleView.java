@@ -1,11 +1,23 @@
+package view;
+
 import javax.swing.*;
+
+import control.PeopleController;
+import model.PersonModel;
+
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
-public class CreatePeopleView extends JFrame implements Observer{
+public class CreatePeopleView extends JPanel implements Observer{
 
-    private JPanel mainPanel;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
+	private JPanel mainPanel;
     private JPanel inputPanel;
     private JPanel topInputPanel;
     private JPanel bottomInputPanel;
@@ -19,22 +31,20 @@ public class CreatePeopleView extends JFrame implements Observer{
     private JScrollPane skillsPane;
     private JScrollPane addPane;
     private JButton enter;
-    private Model model;
+    private PersonModel model;
 
-    private Controller controller;
+    private PeopleController controller;
 
 
-    public CreatePeopleView(Model model){
+    public CreatePeopleView(PersonModel model){
 
-        setSize(700, 400);
-
+    	this.setLayout(new BorderLayout());
         this.model = model;
         nameField = new JTextField();
         skillsField = new JTextField();
         titleLabel = new JLabel("Click enter to add people. Double click on person to delete.");
         //skillsList = new JList(model.getABC());
-        controller = new Controller(model, nameField, skillsField);
-        mainPanel = new JPanel(new BorderLayout());
+        controller = new PeopleController(model, nameField, skillsField);
         inputPanel = new JPanel(new BorderLayout());
         topInputPanel = new JPanel(new BorderLayout());
         bottomInputPanel = new JPanel(new BorderLayout());
@@ -78,17 +88,11 @@ public class CreatePeopleView extends JFrame implements Observer{
         topInputPanel.add(nameField, BorderLayout.CENTER);
         bottomInputPanel.add(skillsLabel, BorderLayout.WEST);
         bottomInputPanel.add(skillsField, BorderLayout.CENTER);
-        mainPanel.add(addPane, BorderLayout.CENTER);
+        add(addPane, BorderLayout.CENTER);
         inputPanel.add(topInputPanel, BorderLayout.NORTH);
         inputPanel.add(bottomInputPanel, BorderLayout.CENTER);
         inputPanel.add(enter, BorderLayout.SOUTH);topInputPanel.add(titleLabel, BorderLayout.NORTH);
-        mainPanel.add(inputPanel, BorderLayout.NORTH);
-
-
-        setContentPane(mainPanel);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-        pack();
+        add(inputPanel, BorderLayout.NORTH);
     }
 
     @Override

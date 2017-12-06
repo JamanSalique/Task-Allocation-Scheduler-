@@ -1,4 +1,9 @@
+package control;
+
 import javax.swing.*;
+
+import model.PersonModel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -6,11 +11,11 @@ import java.awt.event.MouseListener;
 
 public class PeopleController implements ActionListener, MouseListener{
 
-    private Model model;
+    private PersonModel model;
     private JTextField f;
     private JTextField l;
 
-    public PeopleController(Model model, JTextField f, JTextField l){
+    public PeopleController(PersonModel model, JTextField f, JTextField l){
         this.model = model;
         this.f = f;
         this.l = l;
