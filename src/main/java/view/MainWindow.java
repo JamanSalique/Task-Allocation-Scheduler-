@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,10 +13,13 @@ import javax.swing.JPanel;
 
 import control.ButtonListener;
 import model.FrameModel;
+import model.PersonModel;
 
 /**
+ * @author Antonni Pykalisto
  * 
- * MainWindow is a JFrame which holds all the panels
+ * MainWindow is a JFrame which holds all the panels. It holds two JCombobox with dates
+ * which when selected, extracts data from the Ripley API and update the panels which it holds.
  * Two buttons are at the south of the frame which allows users to the next left or right panel.
  */
 
@@ -28,10 +30,14 @@ public class MainWindow extends JFrame implements Observer{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
+	//Model
 	private FrameModel model;
+	private PersonModel personModel;
+	
+	//Control
 	private ButtonListener buttonListener;
 	
+	//View
 	private CreateTaskView createTask;
 	private CreatePeopleView createPerson;
 	private JPanel schedule;
@@ -59,12 +65,14 @@ public class MainWindow extends JFrame implements Observer{
 		super("Task Planner");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		personModel = new PersonModel();
 				
 		schedule = new JPanel();
 		schedule.add(new JLabel("Schedule here"));
 		createTask = new CreateTaskView();
 		createPerson = new CreatePeopleView(personModel);
-
+		
 		buttonListener = new ButtonListener(model);
 		
 		//================================ Buttons ====================================
@@ -76,7 +84,7 @@ public class MainWindow extends JFrame implements Observer{
 		rightButton = new JButton(">");
 		rightButton.addActionListener(buttonListener);
 		rightButton.setActionCommand("move right");
-
+		
 		//================================= Panels ====================================
 		
 		currentCenterPanelIndex = 1;
@@ -133,10 +141,6 @@ public class MainWindow extends JFrame implements Observer{
 		}
 	}
 	
-	/**
-	 * Main method starts program
-	 * @throws InterruptedException, IOException
-	 */
 	public static void main(String[] args) throws InterruptedException, IOException{
 		
 		//create a new instance of each one.
