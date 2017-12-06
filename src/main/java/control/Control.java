@@ -58,6 +58,14 @@ public class Control {
 			}
 		}
 	}
+
+	public ArrayList<ScheduleTask> getTasks(){
+		return this.tasks;
+	}
+	
+	public ArrayList<Person> getTeam(){
+		return this.team;
+	}
 	
 	public void setSchedule(){
 		schedule = new Schedule(tasks, team);
