@@ -1,7 +1,7 @@
 # SEGAgile
 
 ###Team Name:
-- [Insert Name]
+- DINGO
 
 ###Team Members:
 - Adriel
