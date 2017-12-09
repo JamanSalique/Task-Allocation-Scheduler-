@@ -117,9 +117,4 @@ public class GanttChartGUI extends JPanel {
         return chartpanel;
     }
 
-    public static void main(String args[]) {
-        Control.instantiate();
-        GanttChartGUI ganttdemo = new GanttChartGUI("Planning App");
-    }
-
 }

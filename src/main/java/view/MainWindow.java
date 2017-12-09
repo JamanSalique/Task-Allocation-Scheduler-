@@ -89,7 +89,7 @@ public class MainWindow extends JFrame implements Observer{
                 public void actionPerformed(ActionEvent event) {
 	                	Control.instantiate();
 	        			JPanel ganttdemo = new GanttChartGUI("Planning App");
-	        			schedule.add(ganttdemo, BorderLayout.SOUTH);
+	        			schedule.add(ganttdemo, BorderLayout.CENTER);
 	        			schedule.revalidate();
 	        			schedule.repaint();
 	        			schedule.setVisible(true);
