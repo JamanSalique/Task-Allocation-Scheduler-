@@ -3,6 +3,7 @@ apply plugin: 'application'
 mainClassName = 'view.MainWindow'
 dependencies {
   compile group: 'org.jfree', name: 'jfreechart', version: '1.0.19'
+  testCompile 'junit:junit:4.12'
 }
 repositories {
   mavenCentral()
