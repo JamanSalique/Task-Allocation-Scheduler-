@@ -28,10 +28,14 @@ import control.Control;
 import model.Block;
 
 //dependencies -- TaskNumeric and GanttChartFactory classes.
-// If we remove them the Chart will work awfully with numbers instead of an actual date.
 public class GanttChartGUI extends JPanel {
 
-    
+	/**
+	 * Constructor
+	 * 
+	 * @param s - set a name for the chart.
+	 * Inside the constructor the preferred layout and size are set.
+	 */    
     public GanttChartGUI(String s) {
         setLayout(new GridLayout());
         add(createDemoPanel());
@@ -39,7 +43,11 @@ public class GanttChartGUI extends JPanel {
         setVisible(true);
     }
 
-    // Create the chart frame.
+    /**
+     * Create the actual chart, setting the actual attributes inside the method.
+     * @param dataset - represents all the tasks, their names and durations.
+     * 
+     */
     private static JFreeChart createChart(IntervalCategoryDataset dataset) {
         final JFreeChart chart = GanttChartFactory.createGanttChart(
             "Planning Schedule", "Task", "Time", dataset, true, true, false);
@@ -47,7 +55,10 @@ public class GanttChartGUI extends JPanel {
     }
 
     
-    // Create a Dataset for the chart -> Tasks and a legend.
+    /**
+     * Create a Dataset for the chart.
+     * Each Task must have a name, start time and end time.
+     */
     private static IntervalCategoryDataset createDataset() {
         TaskSeries inProgress = new TaskSeries("In Progress");       
 
@@ -60,7 +71,9 @@ public class GanttChartGUI extends JPanel {
         return taskseriescollection;
     }
 
-    // Create Panel -> added to the frame in the constructor.
+    /**
+     * Create the panel with the GanttChart.
+     */
     public static JPanel createDemoPanel() {
         JFreeChart jfreechart = createChart(createDataset());
         ChartPanel chartpanel = new ChartPanel(jfreechart);
@@ -81,23 +94,19 @@ public class GanttChartGUI extends JPanel {
         renderer.setBaseItemLabelGenerator( new CategoryItemLabelGenerator(){
             
             
-            //has to be overridden
             @Override
             public String generateRowLabel(CategoryDataset dataset, int row) {
                 return "Your Row Text  " + row;
             }
 
-            // has to be overridden
             @Override
             public String generateColumnLabel(CategoryDataset dataset, int column) {
                 return "Your Column Text  " + column;
             }
 
-            // What we need -> the actual text on the time periods.
             @Override
             public String generateLabel(CategoryDataset dataset, int row, int column) {
                 return Control.instance().getSchedule().getBlocks().get(column).getPeople().toString();
-            //  return dayShift.get(column) +  "," + nightShift.get(column);
             }
 
 
@@ -111,7 +120,6 @@ public class GanttChartGUI extends JPanel {
     public static void main(String args[]) {
         Control.instantiate();
         GanttChartGUI ganttdemo = new GanttChartGUI("Planning App");
-       // RefineryUtilities.centerFrameOnScreen(ganttdemo);
     }
 
 }
