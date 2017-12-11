@@ -13,12 +13,28 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+/**
+ * Controller for people creation, implements ActionListener
+ * 
+ * @see PersonModel
+ * @see CreatePersonView
+ */
 public class PeopleController implements ActionListener{
 
     private PersonModel model;
     private JTextField name;
     private JList<Skills> skills;
 
+    /**
+     * Constructor for PeopleController
+     * 
+     * @param model PersonModel object that creates new person
+     * @param name Name of person
+     * @param skills List of skills that person has
+     * 
+     * @see PersonModel
+     * @see CreatePersonView
+     */
     public PeopleController(PersonModel model, JTextField name, JList<Skills> skills){
         this.model = model;
         this.name = name;
@@ -26,6 +42,11 @@ public class PeopleController implements ActionListener{
 
     }
 
+    /**
+	 * Activated when button to create a new person is pressed, validates input data then creates new person if valid
+	 * 
+	 * @param e ActionEvent that is triggered when create person button is clicked
+	 */
     @Override
     public void actionPerformed(ActionEvent e) {
     	

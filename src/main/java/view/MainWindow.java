@@ -21,16 +21,21 @@ import model.TaskModel;
 /**
  * @author Antonni Pykalisto
  * 
- * MainWindow is a JFrame which holds all the panels. It holds two JCombobox with dates
- * which when selected, extracts data from the Ripley API and update the panels which it holds.
+ * MainWindow is a JFrame which holds all the panels.
  * Two buttons are at the south of the frame which allows users to the next left or right panel.
+ * MainWindow extends JFrame and implements Observer
+ * 
+ * @see JFrame
+ * @see Observer
+ * @see FrameModel
+ * @see ButtonListener
+ * @see CreatePeopleView
+ * @see CreateTaskView
+ * @see GranttChartGUI
  */
 
 public class MainWindow extends JFrame implements Observer{
 
-	/**
-	 * Default serial version added
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	//Model
@@ -56,13 +61,16 @@ public class MainWindow extends JFrame implements Observer{
 
 	private JPanel currentCenterPanel;
 	private JPanel bottomPanel;	
+	
 	/**
 	 * MainWindow Constructor to create an instance of the class
 	 * 
-	 * @param model an object of the FrameModel class which holds the main functionalities of the MainWindow class
+	 * @param model Object of the FrameModel class which holds the main functionalities of the MainWindow class
 	 * @throws InterruptedException
+	 * 
+	 * @see FrameModel
+	 * @see ButtonListener
 	 */
-	
 	public MainWindow(FrameModel model) throws InterruptedException{
 
 		super("Task Planner");
@@ -136,6 +144,9 @@ public class MainWindow extends JFrame implements Observer{
 	/**
 	 * Invoked when the Observable class Model invokes the methods
 	 * setChanged and notifyObservers
+	 * 
+	 * @param o
+	 * @param arg
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
@@ -163,13 +174,20 @@ public class MainWindow extends JFrame implements Observer{
 		}
 	}
 	
+	/**
+	 * Main method to run program
+	 * 
+	 * @param args
+	 * 
+	 * @throws InterruptedException
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws InterruptedException, IOException{
 		
 		//create a new instance of each one.
 		FrameModel model = new FrameModel();
 		MainWindow view = new MainWindow(model);
 		
-
 		//adds the view to the model as an observer.
 		model.addObserver(view);
 
