@@ -239,7 +239,6 @@ public class Schedule {
 		ArrayList<Block> toReturn = new ArrayList<Block>();
 		int time = 0;
 		boolean keepGoing = true;
-		int ii = 0;
 		while(inputCopy.size() != 0 && keepGoing){
 			keepGoing = false;
 			HashMap<ScheduleTask, ArrayList<ArrayList<Person>>> possibleTeamsPerTask = new HashMap<ScheduleTask, ArrayList<ArrayList<Person>>>();
@@ -255,11 +254,15 @@ public class Schedule {
 
 						if(tasks.size() <= 5) {
 							inputCopy2.add(inputCopy.get(i));
-						}else{
+						}else if (tasks.size() <= 10 && people.size() <= 10){
 							//For larger schedules, this heuristic increases the runtime
 							possibleTeamsPerTask.put(inputCopy.get(i), teams);
 							inputCopy.remove(i);
 							i++;
+						}else {
+							possibleTeamsPerTask.put(inputCopy.get(i), teams);
+							inputCopy.remove(i);
+							i = inputCopy.size();
 						}
 					}
 				}
@@ -282,7 +285,6 @@ public class Schedule {
 				}
 				toReturn.add(b);
 			}
-			++ii;
 		}
 
 		return toReturn;
