@@ -24,11 +24,16 @@ import model.ScheduleTask;
 import model.Skills;
 import model.TaskModel;
 
+/**
+ * GUI for creating new task, extends JPanel and implements Observer
+ * 
+ * @see JPanel
+ * @see Observer
+ * @see TaskModel
+ * @see TaskListener
+ */
 public class CreateTaskView extends JPanel implements Observer{
 	
-	/**
-	 * Default serial version added
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private TaskListener taskListener;
@@ -43,6 +48,11 @@ public class CreateTaskView extends JPanel implements Observer{
 	
 	/**
 	 * Constructs panel that allows manager to create new tasks, based on JPanel class
+	 * 
+	 * @param model TaskModel to allow creation of new tasks
+	 * 
+	 * @see TaskModel
+	 * @see TaskListener
 	 */
 	public CreateTaskView(TaskModel model) {	
 		
@@ -109,6 +119,12 @@ public class CreateTaskView extends JPanel implements Observer{
 		jpSouth.add(jbCreate);
 	}
 	
+	/**
+	 * Update method to update panel every time new task is created
+	 * 
+	 * @param o Observable object
+	 * @param arg Object 
+	 */
     @Override
     public void update(Observable o, Object arg) {
 

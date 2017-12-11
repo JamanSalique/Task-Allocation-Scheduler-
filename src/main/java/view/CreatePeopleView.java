@@ -11,11 +11,16 @@ import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * GUI for creating new person, extends JPanel and implements Observer
+ * 
+ * @see JPanel
+ * @see Observer
+ * @see PeopleModel
+ * @see PeopleController
+ */
 public class CreatePeopleView extends JPanel implements Observer{
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private JTextField nameInput;
@@ -24,7 +29,14 @@ public class CreatePeopleView extends JPanel implements Observer{
 
     private PeopleController controller;
 
-
+    /**
+     * Constructor
+     * 
+     * @param model PersonModel to allow creation of new people
+     * 
+     * @see PeopleModel
+     * @see PeopleController
+     */
     public CreatePeopleView(PersonModel model){
 
     	this.model = model;
@@ -64,6 +76,12 @@ public class CreatePeopleView extends JPanel implements Observer{
 		jpSouth.add(jbCreate);
     }
 
+    /**
+     * Update method
+     * 
+     * @param o
+     * @param arg
+     */
     @Override
     public void update(Observable o, Object arg) {
     	

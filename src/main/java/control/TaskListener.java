@@ -1,6 +1,3 @@
-/**
- * 
- */
 package control;
 
 import java.awt.event.ActionEvent;
@@ -20,8 +17,10 @@ import model.TaskModel;
 
 
 /**
- * @author Anttoni
- *
+ * Controller for task creation, implements ActionListener
+ * 
+ * @see TaskModel
+ * @see CreateTaskView
  */
 public class TaskListener implements ActionListener {
 
@@ -33,6 +32,19 @@ public class TaskListener implements ActionListener {
 	JList<String> tasks;
 	JList<Skills> skills;
 	
+	/**
+	 * Constructor for TaskListener
+	 * 
+	 * @param model TaskModel object to create new task with all inputs
+	 * @param nameInput Name of task
+	 * @param peopleNum Number of people in the task
+	 * @param effortNum Effort size to complete project
+	 * @param skills List of skills needed to complete task
+	 * @param tasks Previous tasks that need to be completed before this task can begin
+	 * 
+	 * @see TaskModel
+	 * @see CreateTaskView
+	 */
 	public TaskListener(TaskModel model, JTextField nameInput, JSlider peopleNum, JSlider effortNum, JList<Skills> skills, JList<String> tasks){
 		this.model = model;			
 		this.nameInput = nameInput;
@@ -42,6 +54,11 @@ public class TaskListener implements ActionListener {
 		this.tasks = tasks;
 	}
 	
+	/**
+	 * Activated when button to create a new task is pressed, validates input data then creates new task if valid
+	 * 
+	 * @param e ActionEvent that is triggered when create task button is clicked
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()){

@@ -2,6 +2,12 @@ package model;
 
 import java.util.Observable;
 
+/**
+ * Model for MainWindow to switch between panels
+ * 
+ * @see ButtonListener
+ * @see MainWindow
+ */
 public class FrameModel extends Observable{
 	private int methodNum;
 	/**
@@ -24,6 +30,11 @@ public class FrameModel extends Observable{
 		notifyObservers();
 	}
 
+	/**
+	 * Getter for methodNum
+	 * 
+	 * @return Method number, left button returns 1, right returns 2
+	 */
 	public int getMethodNum() {
 		return methodNum;
 	}
