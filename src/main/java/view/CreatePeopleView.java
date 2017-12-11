@@ -56,7 +56,7 @@ public class CreatePeopleView extends JPanel implements Observer{
 		jpCenter.add(jspSkills);
 		
 		//Create button to create task
-		JButton jbCreate = new JButton("Create Task");
+		JButton jbCreate = new JButton("Add Team Member");
 		
 		controller = new PeopleController(model, nameInput, skills);
 		jbCreate.addActionListener(controller);

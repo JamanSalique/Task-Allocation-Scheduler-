@@ -70,7 +70,7 @@ public class CreateTaskView extends JPanel implements Observer{
 		
 		//Adding Effort Estimate
 		jpCenter.add(new JLabel("Effort Estimate:"));
-		effortNum = new JSlider(0, 20, 1);
+		effortNum = new JSlider(1, 20, 1);
 		effortNum.setMinorTickSpacing(1);
 		effortNum.setMajorTickSpacing(10);
 		effortNum.setPaintTicks(true);
@@ -80,7 +80,7 @@ public class CreateTaskView extends JPanel implements Observer{
 		
 		//Adding Number Of People
 		jpCenter.add(new JLabel("Number Of People:"));
-		peopleNum = new JSlider(0, 20, 1);
+		peopleNum = new JSlider(1, 20, 1);
 		peopleNum.setMinorTickSpacing(1);
 		peopleNum.setMajorTickSpacing(10);
 		peopleNum.setPaintTicks(true);
