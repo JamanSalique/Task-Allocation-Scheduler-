@@ -155,7 +155,6 @@ public class MainWindow extends JFrame implements Observer{
 		switch (model.getMethodNum()){
 		//counting down the array storing the panels
 		case 1:
-			System.out.println(currentCenterPanelIndex);
 			if (currentCenterPanelIndex != 1){
 				currentCenterPanelIndex--;
 				centerPanelLayout.show(currentCenterPanel, "" + currentCenterPanelIndex);
