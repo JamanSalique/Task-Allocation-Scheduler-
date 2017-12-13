@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -27,20 +28,26 @@ import control.Control;
 import model.Block;
 
 //dependencies -- TaskNumeric and GanttChartFactory classes.
-// If we remove them the Chart will work awfully with numbers instead of an actual date.
-public class GanttChartGUI extends ApplicationFrame {
+public class GanttChartGUI extends JPanel {
 
-	
+	/**
+	 * Constructor
+	 * 
+	 * @param s - set a name for the chart.
+	 * Inside the constructor the preferred layout and size are set.
+	 */    
     public GanttChartGUI(String s) {
-        super(s);
-        JPanel jpanel = createDemoPanel();
-        jpanel.setPreferredSize(new Dimension(700, 500));
-        setContentPane(jpanel);
-        pack();
+        setLayout(new GridLayout());
+        add(createDemoPanel());
+        setPreferredSize(new Dimension(700, 500));
         setVisible(true);
     }
 
-    // Create the chart frame.
+    /**
+     * Create the actual chart, setting the actual attributes inside the method.
+     * @param dataset - represents all the tasks, their names and durations.
+     * 
+     */
     private static JFreeChart createChart(IntervalCategoryDataset dataset) {
         final JFreeChart chart = GanttChartFactory.createGanttChart(
             "Planning Schedule", "Task", "Time", dataset, true, true, false);
@@ -48,12 +55,15 @@ public class GanttChartGUI extends ApplicationFrame {
     }
 
     
-    // Create a Dataset for the chart -> Tasks and a legend.
+    /**
+     * Create a Dataset for the chart.
+     * Each Task must have a name, start time and end time.
+     */
     private static IntervalCategoryDataset createDataset() {
         TaskSeries inProgress = new TaskSeries("In Progress");       
 
         for(Block b : Control.instance().getSchedule().getBlocks()) {
-        		inProgress.add(new TaskNumeric(b.getTask().getName(), b.getStart(), b.getEnd()));
+                inProgress.add(new TaskNumeric(b.getTask().getName(), b.getStart(), b.getEnd()));
         }
         
         TaskSeriesCollection taskseriescollection = new TaskSeriesCollection();
@@ -61,7 +71,9 @@ public class GanttChartGUI extends ApplicationFrame {
         return taskseriescollection;
     }
 
-    // Create Panel -> added to the frame in the constructor.
+    /**
+     * Create the panel with the GanttChart.
+     */
     public static JPanel createDemoPanel() {
         JFreeChart jfreechart = createChart(createDataset());
         ChartPanel chartpanel = new ChartPanel(jfreechart);
@@ -80,25 +92,21 @@ public class GanttChartGUI extends ApplicationFrame {
         
         // We have to override the BaseItemLabelGenerator in order to write on the time periods.
         renderer.setBaseItemLabelGenerator( new CategoryItemLabelGenerator(){
-        	
-        	
-        	//has to be overridden
+            
+            
             @Override
             public String generateRowLabel(CategoryDataset dataset, int row) {
                 return "Your Row Text  " + row;
             }
 
-            // has to be overridden
             @Override
             public String generateColumnLabel(CategoryDataset dataset, int column) {
                 return "Your Column Text  " + column;
             }
 
-            // What we need -> the actual text on the time periods.
             @Override
             public String generateLabel(CategoryDataset dataset, int row, int column) {
                 return Control.instance().getSchedule().getBlocks().get(column).getPeople().toString();
-            //	return dayShift.get(column) +  "," + nightShift.get(column);
             }
 
 
@@ -107,12 +115,6 @@ public class GanttChartGUI extends ApplicationFrame {
         
         
         return chartpanel;
-    }
-
-    public static void main(String args[]) {
-    		Control.instantiate();
-        GanttChartGUI ganttdemo = new GanttChartGUI("Planning App");
-        RefineryUtilities.centerFrameOnScreen(ganttdemo);
     }
 
 }

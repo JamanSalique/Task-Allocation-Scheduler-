@@ -3,105 +3,100 @@ package view;
 import javax.swing.*;
 
 import control.PeopleController;
+import control.TaskListener;
 import model.PersonModel;
+import model.Skills;
 
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * GUI for creating new person, extends JPanel and implements Observer
+ * 
+ * @see JPanel
+ * @see Observer
+ * @see PeopleModel
+ * @see PeopleController
+ */
 public class CreatePeopleView extends JPanel implements Observer{
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
-	
-	private JPanel mainPanel;
-    private JPanel inputPanel;
-    private JPanel topInputPanel;
-    private JPanel bottomInputPanel;
-    private JLabel nameLabel;
-    private JLabel skillsLabel;
-    private JLabel titleLabel;
-    private JTextField nameField;
-    private JTextField skillsField;
-    private JList<String> skillsList;
-    private JList<String> addList;
-    private JScrollPane skillsPane;
-    private JScrollPane addPane;
-    private JButton enter;
+	private JTextField nameInput;
+	private JList<Skills> skills;
+	private JList<String> people;
     private PersonModel model;
 
     private PeopleController controller;
 
-
+    /**
+     * Constructor
+     * 
+     * @param model PersonModel to allow creation of new people
+     * 
+     * @see PeopleModel
+     * @see PeopleController
+     */
     public CreatePeopleView(PersonModel model){
 
-    	this.setLayout(new BorderLayout());
-        this.model = model;
-        nameField = new JTextField();
-        skillsField = new JTextField();
-        titleLabel = new JLabel("Click enter to add people. Double click on person to delete.");
-        //skillsList = new JList(model.getABC());
-        controller = new PeopleController(model, nameField, skillsField);
-        inputPanel = new JPanel(new BorderLayout());
-        topInputPanel = new JPanel(new BorderLayout());
-        bottomInputPanel = new JPanel(new BorderLayout());
-        nameLabel = new JLabel("Name: ");
-        skillsLabel = new JLabel("Skill Level (0-100): ");
-        nameField.addActionListener(controller);
+    	this.model = model;
+		
+		//Create Over-arching Border Layout
+		this.setLayout(new BorderLayout());
+		JPanel jpNorth = new JPanel();
+		JPanel jpCenter = new JPanel();
+		JPanel jpSouth = new JPanel();
+		this.add(jpNorth, BorderLayout.NORTH);
+		this.add(jpCenter, BorderLayout.CENTER);
+		this.add(jpSouth, BorderLayout.SOUTH);
+		
+		//Create Grid Layout for north layout
+		jpNorth.add(new JLabel("Create a new person here"));
 
-        skillsField.addActionListener(controller);
-
-
-
-//        skillsList.setSelectionModel(new DefaultListSelectionModel() {
-//            @Override
-//            public void setSelectionInterval(int a, int b) {
-//                if(isSelectedIndex(a)) {
-//                    removeSelectionInterval(a, b);
-//                }
-//                else {
-//                    addSelectionInterval(a, b);
-//                }
-//            }
-//        });
-
-
-
-
-        addList = new JList<String>(model.getPeople());
-        addList.addMouseListener(controller);
-        //skillsPane = new JScrollPane(skillsList);
-        addPane = new JScrollPane(addList);
-        enter = new JButton("Enter");
-        enter.addActionListener(controller);
-
-   //     skillsPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-   //     skillsPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        addPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        addPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
-
-        topInputPanel.add(nameLabel, BorderLayout.WEST);
-        topInputPanel.add(nameField, BorderLayout.CENTER);
-        bottomInputPanel.add(skillsLabel, BorderLayout.WEST);
-        bottomInputPanel.add(skillsField, BorderLayout.CENTER);
-        add(addPane, BorderLayout.CENTER);
-        inputPanel.add(topInputPanel, BorderLayout.NORTH);
-        inputPanel.add(bottomInputPanel, BorderLayout.CENTER);
-        inputPanel.add(enter, BorderLayout.SOUTH);topInputPanel.add(titleLabel, BorderLayout.NORTH);
-        add(inputPanel, BorderLayout.NORTH);
+		//Create Grid Layout for centre layout
+		jpCenter.setLayout(new BorderLayout());
+		JPanel jpCCenter = new JPanel();
+		JPanel jpCSouth = new JPanel();
+		jpCenter.add(jpCCenter, BorderLayout.CENTER);
+		jpCenter.add(jpCSouth, BorderLayout.SOUTH);
+		jpCCenter.setLayout(new GridLayout(2, 2));
+		
+		//Adding Task Name
+		jpCCenter.add(new JLabel("Person Name:"));
+		nameInput = new JTextField();
+		jpCCenter.add(nameInput);	
+		
+		//Adding Skills That Person Has
+		jpCCenter.add(new JLabel("Add Skills"));
+		skills = new JList<Skills>(Skills.values());
+		JScrollPane jspSkills = new JScrollPane(skills);
+		jpCCenter.add(jspSkills);
+		
+		//Create button to create task
+		JButton jbCreate = new JButton("Add Team Member");
+		
+		controller = new PeopleController(model, nameInput, skills);
+		jbCreate.addActionListener(controller);
+		jbCreate.setActionCommand("create person");
+		jpCSouth.add(jbCreate);
+		
+		//Showing all people created
+		people = new JList<String>(model.getPeople());
+		JScrollPane jspPeople = new JScrollPane(people);
+		jspPeople.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		jpSouth.setLayout(new GridLayout(1, 1));
+		jpSouth.add(jspPeople);
     }
 
+    /**
+     * Update method
+     * 
+     * @param o
+     * @param arg
+     */
     @Override
     public void update(Observable o, Object arg) {
-
-        skillsList.revalidate();
-        skillsList.repaint();
-
-        addList.revalidate();
-        addList.repaint();
+    	
     }
 }

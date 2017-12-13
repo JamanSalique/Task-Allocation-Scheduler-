@@ -21,6 +21,9 @@ public class GanttChartFactory extends ChartFactory {
 
     protected static ChartTheme currentTheme = new StandardChartTheme("JFree");
 
+	/**
+     * Creates a Gantt chart using the supplied attributes plus default values where required.
+     */
     public static JFreeChart createGanttChart(String title,
             String categoryAxisLabel, String valueAxisLabel,
             IntervalCategoryDataset dataset, boolean legend, boolean tooltips,

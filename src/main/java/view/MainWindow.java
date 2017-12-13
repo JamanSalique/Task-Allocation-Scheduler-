@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
@@ -12,27 +13,35 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import control.ButtonListener;
+import control.Control;
 import model.FrameModel;
 import model.PersonModel;
+import model.TaskModel;
 
 /**
  * @author Antonni Pykalisto
  * 
- * MainWindow is a JFrame which holds all the panels. It holds two JCombobox with dates
- * which when selected, extracts data from the Ripley API and update the panels which it holds.
+ * MainWindow is a JFrame which holds all the panels.
  * Two buttons are at the south of the frame which allows users to the next left or right panel.
+ * MainWindow extends JFrame and implements Observer
+ * 
+ * @see JFrame
+ * @see Observer
+ * @see FrameModel
+ * @see ButtonListener
+ * @see CreatePeopleView
+ * @see CreateTaskView
+ * @see GranttChartGUI
  */
 
 public class MainWindow extends JFrame implements Observer{
 
-	/**
-	 * Default serial version added
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	//Model
 	private FrameModel model;
 	private PersonModel personModel;
+	private TaskModel taskModel;	
 	
 	//Control
 	private ButtonListener buttonListener;
@@ -46,20 +55,22 @@ public class MainWindow extends JFrame implements Observer{
 	
 	private CardLayout centerPanelLayout;
 
+	private JButton scheduleGenerator;
 	private JButton leftButton;
 	private JButton rightButton;
 
-	private JPanel topPanel;
 	private JPanel currentCenterPanel;
 	private JPanel bottomPanel;	
 	
 	/**
 	 * MainWindow Constructor to create an instance of the class
 	 * 
-	 * @param model an object of the FrameModel class which holds the main functionalities of the MainWindow class
+	 * @param model Object of the FrameModel class which holds the main functionalities of the MainWindow class
 	 * @throws InterruptedException
+	 * 
+	 * @see FrameModel
+	 * @see ButtonListener
 	 */
-	
 	public MainWindow(FrameModel model) throws InterruptedException{
 
 		super("Task Planner");
@@ -67,16 +78,34 @@ public class MainWindow extends JFrame implements Observer{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		personModel = new PersonModel();
+		taskModel = new TaskModel();
 				
 		schedule = new JPanel();
-		schedule.add(new JLabel("Schedule here"));
-		createTask = new CreateTaskView();
+		schedule.setLayout(new BorderLayout());
+		createTask = new CreateTaskView(taskModel);
 		createPerson = new CreatePeopleView(personModel);
 		
 		buttonListener = new ButtonListener(model);
 		
 		//================================ Buttons ====================================
 		
+		scheduleGenerator = new JButton("Start!");
+        scheduleGenerator.setBounds(90,430,126,24);
+        schedule.add(scheduleGenerator, BorderLayout.NORTH);
+        scheduleGenerator.addActionListener(
+            new ActionListener() {
+                public void actionPerformed(ActionEvent event) {
+	                	Control.instantiate();
+	        			JPanel ganttdemo = new GanttChartGUI("Planning App");
+	        			schedule.add(ganttdemo, BorderLayout.CENTER);
+	        			schedule.revalidate();
+	        			schedule.repaint();
+	        			schedule.setVisible(true);
+	        			revalidate();
+	        			repaint();
+                }
+            });
+
 		leftButton = new JButton("<");
 		leftButton.addActionListener(buttonListener);
 		leftButton.setActionCommand("move left");
@@ -88,10 +117,6 @@ public class MainWindow extends JFrame implements Observer{
 		//================================= Panels ====================================
 		
 		currentCenterPanelIndex = 1;
-		
-		topPanel = new JPanel();
-		topPanel.setOpaque(false);
-		topPanel.add(new JLabel("Task Planner"));
 		
 		centerPanelLayout = new CardLayout();
 		currentCenterPanel = new JPanel();
@@ -110,7 +135,6 @@ public class MainWindow extends JFrame implements Observer{
 		//============================= Layout Manager ================================
 
 		setLayout(new BorderLayout());
-        add(topPanel, BorderLayout.NORTH);
         add(currentCenterPanel, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
         setSize(1200, 750);
@@ -120,6 +144,9 @@ public class MainWindow extends JFrame implements Observer{
 	/**
 	 * Invoked when the Observable class Model invokes the methods
 	 * setChanged and notifyObservers
+	 * 
+	 * @param o
+	 * @param arg
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
@@ -128,30 +155,42 @@ public class MainWindow extends JFrame implements Observer{
 		switch (model.getMethodNum()){
 		//counting down the array storing the panels
 		case 1:
+			System.out.println(currentCenterPanelIndex);
 			if (currentCenterPanelIndex != 1){
 				currentCenterPanelIndex--;
+				System.out.println("Changed to: " + currentCenterPanelIndex);
 				centerPanelLayout.show(currentCenterPanel, "" + currentCenterPanelIndex);
-			}
+			} 
+			break;
 		//counting up the array storing the panels	
 		case 2:
+			System.out.println(currentCenterPanelIndex);
 			if (currentCenterPanelIndex != 3){
 				currentCenterPanelIndex++;
+				System.out.println("Changed to: " + currentCenterPanelIndex);
 				centerPanelLayout.show(currentCenterPanel, "" + currentCenterPanelIndex);
 			}
+			break;
 		}
 	}
 	
+	/**
+	 * Main method to run program
+	 * 
+	 * @param args
+	 * 
+	 * @throws InterruptedException
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws InterruptedException, IOException{
 		
 		//create a new instance of each one.
 		FrameModel model = new FrameModel();
 		MainWindow view = new MainWindow(model);
 		
-
 		//adds the view to the model as an observer.
 		model.addObserver(view);
 
 		view.setVisible(true);
 	}
 }
-

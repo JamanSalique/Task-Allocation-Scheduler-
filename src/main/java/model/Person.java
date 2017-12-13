@@ -29,6 +29,10 @@ public class Person {
 	}
 
 	public String toString(){
-		return getName();
+		String info = "Name: " + name + " Skills: ";
+		for(Skills e : skills){
+			info += e + " ";
+		}
+		return info;
 	}
 }
