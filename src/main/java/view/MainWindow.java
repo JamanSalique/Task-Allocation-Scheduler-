@@ -158,16 +158,13 @@ public class MainWindow extends JFrame implements Observer{
 			System.out.println(currentCenterPanelIndex);
 			if (currentCenterPanelIndex != 1){
 				currentCenterPanelIndex--;
-				System.out.println("Changed to: " + currentCenterPanelIndex);
 				centerPanelLayout.show(currentCenterPanel, "" + currentCenterPanelIndex);
 			} 
 			break;
 		//counting up the array storing the panels	
 		case 2:
-			System.out.println(currentCenterPanelIndex);
 			if (currentCenterPanelIndex != 3){
 				currentCenterPanelIndex++;
-				System.out.println("Changed to: " + currentCenterPanelIndex);
 				centerPanelLayout.show(currentCenterPanel, "" + currentCenterPanelIndex);
 			}
 			break;
