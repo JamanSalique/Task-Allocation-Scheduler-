@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import control.ButtonListener;
 import control.Control;
+import control.ChartController;
 import model.FrameModel;
 import model.PersonModel;
 import model.TaskModel;
