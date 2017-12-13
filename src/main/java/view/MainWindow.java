@@ -92,19 +92,8 @@ public class MainWindow extends JFrame implements Observer{
 		scheduleGenerator = new JButton("Start!");
         scheduleGenerator.setBounds(90,430,126,24);
         schedule.add(scheduleGenerator, BorderLayout.NORTH);
-        scheduleGenerator.addActionListener(
-            new ActionListener() {
-                public void actionPerformed(ActionEvent event) {
-	                	Control.instantiate();
-	        			JPanel ganttdemo = new GanttChartGUI("Planning App");
-	        			schedule.add(ganttdemo, BorderLayout.CENTER);
-	        			schedule.revalidate();
-	        			schedule.repaint();
-	        			schedule.setVisible(true);
-	        			revalidate();
-	        			repaint();
-                }
-            });
+        ChartController cc = new ChartController(schedule);
+        scheduleGenerator.addActionListener(cc);
 
 		leftButton = new JButton("<");
 		leftButton.addActionListener(buttonListener);
