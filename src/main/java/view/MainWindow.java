@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import control.ButtonListener;
 import control.Control;
+import control.ChartController;
 import model.FrameModel;
 import model.PersonModel;
 import model.TaskModel;
@@ -92,19 +93,8 @@ public class MainWindow extends JFrame implements Observer{
 		scheduleGenerator = new JButton("Start!");
         scheduleGenerator.setBounds(90,430,126,24);
         schedule.add(scheduleGenerator, BorderLayout.NORTH);
-        scheduleGenerator.addActionListener(
-            new ActionListener() {
-                public void actionPerformed(ActionEvent event) {
-	                	Control.instantiate();
-	        			JPanel ganttdemo = new GanttChartGUI("Planning App");
-	        			schedule.add(ganttdemo, BorderLayout.CENTER);
-	        			schedule.revalidate();
-	        			schedule.repaint();
-	        			schedule.setVisible(true);
-	        			revalidate();
-	        			repaint();
-                }
-            });
+        ChartController cc = new ChartController(schedule);
+        scheduleGenerator.addActionListener(cc);
 
 		leftButton = new JButton("<");
 		leftButton.addActionListener(buttonListener);
@@ -155,19 +145,15 @@ public class MainWindow extends JFrame implements Observer{
 		switch (model.getMethodNum()){
 		//counting down the array storing the panels
 		case 1:
-			System.out.println(currentCenterPanelIndex);
 			if (currentCenterPanelIndex != 1){
 				currentCenterPanelIndex--;
-				System.out.println("Changed to: " + currentCenterPanelIndex);
 				centerPanelLayout.show(currentCenterPanel, "" + currentCenterPanelIndex);
 			} 
 			break;
 		//counting up the array storing the panels	
 		case 2:
-			System.out.println(currentCenterPanelIndex);
 			if (currentCenterPanelIndex != 3){
 				currentCenterPanelIndex++;
-				System.out.println("Changed to: " + currentCenterPanelIndex);
 				centerPanelLayout.show(currentCenterPanel, "" + currentCenterPanelIndex);
 			}
 			break;
