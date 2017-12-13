@@ -68,7 +68,11 @@ public class PeopleController implements ActionListener{
 					break;
 				}
 			}
-			if(validEntry) Control.mainControl.addTeamMember(new Person(name.getText(), new ArrayList<Skills>(skills.getSelectedValuesList())));
+			if(validEntry){
+				Person newPerson = new Person(name.getText(), new ArrayList<Skills>(skills.getSelectedValuesList()));
+				model.addToPeople(newPerson);
+				Control.mainControl.addTeamMember(newPerson);
+			}
     	}
 	}
 }

@@ -34,7 +34,7 @@ public class PersonModel extends Observable{
 	 * 
 	 * @param e Adds name of person to list
 	 */
-	public void addToPeople(String e){
-		addModel.addElement(e);
+	public void addToPeople(Person e){
+		addModel.addElement(e.toString());
 	}
 }

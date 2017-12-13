@@ -91,7 +91,7 @@ public class TaskListener implements ActionListener {
 				for(String elem : tasks.getSelectedValuesList()){
 					ArrayList<ScheduleTask> sTask = Control.mainControl.getTasks();
 					for(ScheduleTask t : sTask){
-						if(sTask.contains(elem)){
+						if(t.getName().equals(elem)){
 							taskList.add(t);
 						}
 					}
@@ -100,9 +100,11 @@ public class TaskListener implements ActionListener {
 
 			ArrayList<Skills> skillList = new ArrayList<Skills>();
 			if(!skills.isSelectionEmpty()) skillList = new ArrayList<Skills>(skills.getSelectedValuesList());
-			
-			if(validEntry) model.addTask(nameInput.getText());
-			if(validEntry) Control.mainControl.addTask(new ScheduleTask(nameInput.getText(), effortNum.getValue(), peopleNum.getValue(), taskList, skillList));
+			if(validEntry) {
+				ScheduleTask newTask = new ScheduleTask(nameInput.getText(), effortNum.getValue(), peopleNum.getValue(), taskList, skillList);
+				model.addTask(newTask.getName(), newTask.toString());
+				Control.mainControl.addTask(newTask);
+			}
 		
 			break;
 		}

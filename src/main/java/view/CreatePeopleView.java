@@ -25,6 +25,7 @@ public class CreatePeopleView extends JPanel implements Observer{
 	
 	private JTextField nameInput;
 	private JList<Skills> skills;
+	private JList<String> people;
     private PersonModel model;
 
     private PeopleController controller;
@@ -54,18 +55,23 @@ public class CreatePeopleView extends JPanel implements Observer{
 		jpNorth.add(new JLabel("Create a new person here"));
 
 		//Create Grid Layout for centre layout
-		jpCenter.setLayout(new GridLayout(2, 2));
+		jpCenter.setLayout(new BorderLayout());
+		JPanel jpCCenter = new JPanel();
+		JPanel jpCSouth = new JPanel();
+		jpCenter.add(jpCCenter, BorderLayout.CENTER);
+		jpCenter.add(jpCSouth, BorderLayout.SOUTH);
+		jpCCenter.setLayout(new GridLayout(2, 2));
 		
 		//Adding Task Name
-		jpCenter.add(new JLabel("Person Name:"));
+		jpCCenter.add(new JLabel("Person Name:"));
 		nameInput = new JTextField();
-		jpCenter.add(nameInput);	
+		jpCCenter.add(nameInput);	
 		
 		//Adding Skills That Person Has
-		jpCenter.add(new JLabel("Add Skills"));
+		jpCCenter.add(new JLabel("Add Skills"));
 		skills = new JList<Skills>(Skills.values());
 		JScrollPane jspSkills = new JScrollPane(skills);
-		jpCenter.add(jspSkills);
+		jpCCenter.add(jspSkills);
 		
 		//Create button to create task
 		JButton jbCreate = new JButton("Add Team Member");
@@ -73,7 +79,14 @@ public class CreatePeopleView extends JPanel implements Observer{
 		controller = new PeopleController(model, nameInput, skills);
 		jbCreate.addActionListener(controller);
 		jbCreate.setActionCommand("create person");
-		jpSouth.add(jbCreate);
+		jpCSouth.add(jbCreate);
+		
+		//Showing all people created
+		people = new JList<String>(model.getPeople());
+		JScrollPane jspPeople = new JScrollPane(people);
+		jspPeople.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		jpSouth.setLayout(new GridLayout(1, 1));
+		jpSouth.add(jspPeople);
     }
 
     /**

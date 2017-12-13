@@ -58,4 +58,21 @@ public class ScheduleTask {
 		this.requiredSkills = requiredSkills;
 	}
 	
+	public String toString(){
+		String info = "Name: " + name + " Effort: " + effort + " Number of People: " + people + " Skills: ";
+		if(requiredSkills.isEmpty()) info += "None ";
+		else{
+			for(Skills e : requiredSkills){
+				info += e + " ";
+			}
+		}
+		info += "Tasks required: ";
+		if(requiredBefore.isEmpty()) info += "None";
+		else{
+			for(ScheduleTask e : requiredBefore){
+				info += e.getName() + " ";
+			}
+		}
+		return info;
+	}
 }
