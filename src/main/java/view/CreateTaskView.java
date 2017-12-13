@@ -43,10 +43,7 @@ public class CreateTaskView extends JPanel implements Observer{
 	private JSlider peopleNum;
 	private JList<Skills> skills;
 	private JList<String> taskList;
-<<<<<<< HEAD
-=======
 	private JList<String> tasks;
->>>>>>> refs/remotes/origin/PeoplePlanner
 	
 	private TaskModel model;
 	
@@ -75,39 +72,20 @@ public class CreateTaskView extends JPanel implements Observer{
 		jpNorth.add(new JLabel("Create a new task here"));
 
 		//Create Grid Layout for centre layout
-<<<<<<< HEAD
 		jpCenter.setLayout(new GridLayout(5, 2));
-=======
 		jpCenter.setLayout(new BorderLayout());
 		JPanel jpCCenter = new JPanel();
 		JPanel jpCSouth = new JPanel();
 		jpCenter.add(jpCCenter, BorderLayout.CENTER);
 		jpCenter.add(jpCSouth, BorderLayout.SOUTH);
 		jpCCenter.setLayout(new GridLayout(5, 2));
->>>>>>> refs/remotes/origin/PeoplePlanner
 		
 		//Adding Task Name
-<<<<<<< HEAD
-		jpCenter.add(new JLabel("Task Name:"));
-		nameInput = new JTextField();
-		jpCenter.add(nameInput);	
-=======
 		jpCCenter.add(new JLabel("Task Name:"));
 		nameInput = new JTextField();
 		jpCCenter.add(nameInput);	
->>>>>>> refs/remotes/origin/PeoplePlanner
 		
 		//Adding Effort Estimate
-<<<<<<< HEAD
-		jpCenter.add(new JLabel("Effort Estimate:"));
-		effortNum = new JSlider(1, 20, 1);
-		effortNum.setMinorTickSpacing(1);
-		effortNum.setMajorTickSpacing(10);
-		effortNum.setPaintTicks(true);
-		effortNum.setSnapToTicks(true);
-		effortNum.setPaintLabels(true);
-		jpCenter.add(effortNum);
-=======
 		jpCCenter.add(new JLabel("Effort Estimate:"));
 		effortNum = new JSlider(1, 20, 1);
 		effortNum.setMinorTickSpacing(1);
@@ -116,19 +94,8 @@ public class CreateTaskView extends JPanel implements Observer{
 		effortNum.setSnapToTicks(true);
 		effortNum.setPaintLabels(true);
 		jpCCenter.add(effortNum);
->>>>>>> refs/remotes/origin/PeoplePlanner
 		
 		//Adding Number Of People
-<<<<<<< HEAD
-		jpCenter.add(new JLabel("Number Of People:"));
-		peopleNum = new JSlider(1, 20, 1);
-		peopleNum.setMinorTickSpacing(1);
-		peopleNum.setMajorTickSpacing(10);
-		peopleNum.setPaintTicks(true);
-		peopleNum.setSnapToTicks(true);
-		peopleNum.setPaintLabels(true);
-		jpCenter.add(peopleNum);
-=======
 		jpCCenter.add(new JLabel("Number Of People:"));
 		peopleNum = new JSlider(1, 20, 1);
 		peopleNum.setMinorTickSpacing(1);
@@ -137,25 +104,11 @@ public class CreateTaskView extends JPanel implements Observer{
 		peopleNum.setSnapToTicks(true);
 		peopleNum.setPaintLabels(true);
 		jpCCenter.add(peopleNum);
->>>>>>> refs/remotes/origin/PeoplePlanner
 		
 		//Adding Skills Required
-<<<<<<< HEAD
-		jpCenter.add(new JLabel("Add Skills"));
-=======
 		jpCCenter.add(new JLabel("Add Skills"));
->>>>>>> refs/remotes/origin/PeoplePlanner
 		skills = new JList<Skills>(Skills.values());
 		JScrollPane jspSkills = new JScrollPane(skills);
-<<<<<<< HEAD
-		jpCenter.add(jspSkills);
-		
-		//Adding Tasks Required
-		jpCenter.add(new JLabel("Add Required Tasks"));
-		taskList = new JList<String>(model.getTasks());
-        JScrollPane taskPane = new JScrollPane(taskList);
-        jpCenter.add(taskPane);
-=======
 		jpCCenter.add(jspSkills);
 		
 		//Adding Tasks Required
@@ -163,17 +116,12 @@ public class CreateTaskView extends JPanel implements Observer{
 		taskList = new JList<String>(model.getTasks());
         JScrollPane taskPane = new JScrollPane(taskList);
         jpCCenter.add(taskPane);
->>>>>>> refs/remotes/origin/PeoplePlanner
 		
 		//Create button to create task
 		JButton jbCreate = new JButton("Create Task");
-		
 		taskListener = new TaskListener(model, nameInput, peopleNum, effortNum, skills, taskList);
 		jbCreate.addActionListener(taskListener);
 		jbCreate.setActionCommand("create task");
-<<<<<<< HEAD
-		jpSouth.add(jbCreate);
-=======
 		jpCSouth.add(jbCreate);
 		
 		//Showing all people created
@@ -183,7 +131,6 @@ public class CreateTaskView extends JPanel implements Observer{
 		jspTasks.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		jpSouth.setLayout(new GridLayout(1, 1));
 		jpSouth.add(jspTasks);
->>>>>>> refs/remotes/origin/PeoplePlanner
 	}
 	
 	/**

@@ -59,6 +59,7 @@ public class MainWindow extends JFrame implements Observer{
 	private JButton scheduleGenerator;
 	private JButton leftButton;
 	private JButton rightButton;
+	private JButton reset;
 
 	private JPanel currentCenterPanel;
 	private JPanel bottomPanel;	
@@ -104,6 +105,10 @@ public class MainWindow extends JFrame implements Observer{
 		rightButton.addActionListener(buttonListener);
 		rightButton.setActionCommand("move right");
 		
+		reset = new JButton("Reset");
+		reset.addActionListener(buttonListener);
+		reset.setActionCommand("reset");
+		
 		//================================= Panels ====================================
 		
 		currentCenterPanelIndex = 1;
@@ -121,6 +126,7 @@ public class MainWindow extends JFrame implements Observer{
 		bottomPanel.setLayout(new BorderLayout());
 		bottomPanel.add(leftButton, BorderLayout.WEST);
 		bottomPanel.add(rightButton, BorderLayout.EAST);
+		bottomPanel.add(reset, BorderLayout.CENTER);
 
 		//============================= Layout Manager ================================
 
@@ -157,6 +163,14 @@ public class MainWindow extends JFrame implements Observer{
 				centerPanelLayout.show(currentCenterPanel, "" + currentCenterPanelIndex);
 			}
 			break;
+		case 3:
+			try {
+				init();
+				this.setVisible(false);
+				this.dispose();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -169,7 +183,14 @@ public class MainWindow extends JFrame implements Observer{
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws InterruptedException, IOException{
-		
+		init();
+	}
+	
+	/**
+	 * Initializes components
+	 * @throws InterruptedException 
+	 */
+	public static void init() throws InterruptedException{
 		//create a new instance of each one.
 		FrameModel model = new FrameModel();
 		MainWindow view = new MainWindow(model);
