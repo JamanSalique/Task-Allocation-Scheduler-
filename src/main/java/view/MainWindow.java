@@ -92,6 +92,7 @@ public class MainWindow extends JFrame implements Observer{
 		//================================ Buttons ====================================
 		
 		scheduleGenerator = new JButton("Start!");
+		scheduleGenerator.setName("generate");
         scheduleGenerator.setBounds(90,430,126,24);
         schedule.add(scheduleGenerator, BorderLayout.NORTH);
         ChartController cc = new ChartController(schedule);
@@ -102,6 +103,7 @@ public class MainWindow extends JFrame implements Observer{
 		leftButton.setActionCommand("move left");
 
 		rightButton = new JButton(">");
+		rightButton.setName("rightButton");
 		rightButton.addActionListener(buttonListener);
 		rightButton.setActionCommand("move right");
 		

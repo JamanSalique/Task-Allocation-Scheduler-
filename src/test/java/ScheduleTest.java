@@ -225,53 +225,7 @@ public class ScheduleTest {
 		else if(!correctPeopleAllocation(schedule)) fail("Some people may be scheduled to work for more than one task at once");
 	}
 	
-	@Test(timeout = 10000)
-	public void test10Tasks20People() {
-		ScheduleTask t1 = new ScheduleTask("1", 2, 6, null, new ArrayList<Skills>());
-        ScheduleTask t2 = new ScheduleTask("2", 4, 3, null, new ArrayList<Skills>(Arrays.asList(Skills.CPlus, Skills.CSS, Skills.dotNet)));
-        ScheduleTask t3 = new ScheduleTask("3", 2, 7, null, new ArrayList<Skills>(Arrays.asList(Skills.dotNet)));
-        ScheduleTask t4 = new ScheduleTask("4", 3, 4, null, new ArrayList<Skills>(Arrays.asList(Skills.JavaScript)));
-        ScheduleTask t5 = new ScheduleTask("5", 6, 2, null, new ArrayList<Skills>(Arrays.asList(Skills.HTML)));
-        ScheduleTask t6 = new ScheduleTask("6", 3, 4, null, new ArrayList<Skills>());
-        ScheduleTask t7 = new ScheduleTask("7", 4, 8, null, new ArrayList<Skills>(Arrays.asList(Skills.Go, Skills.dotNet)));
-        ScheduleTask t8 = new ScheduleTask("8", 3, 6, null, new ArrayList<Skills>());
-        ScheduleTask t9 = new ScheduleTask("9", 2, 3, null, new ArrayList<Skills>());
-        ScheduleTask t10= new ScheduleTask("10", 8, 10, null, new ArrayList<Skills>(Arrays.asList(Skills.CPlus, Skills.CSS, Skills.dotNet)));
-        
-        ArrayList<ScheduleTask> tasks = new ArrayList<ScheduleTask>(Arrays.asList(t1,t2,t3, t4, t5, t6, t7, t8, t9, t10));
-
-        Person one = new Person("1", new ArrayList<Skills>(Arrays.asList(Skills.dotNet)));
-        Person two = new Person("2",  new ArrayList<Skills>(Arrays.asList(Skills.CPlus)));
-        Person three = new Person("3", new ArrayList<Skills>(Arrays.asList(Skills.JavaScript)));
-        Person four = new Person("4",  new ArrayList<Skills>(Arrays.asList(Skills.CSS)));
-        Person five = new Person("5", new ArrayList<Skills>(Arrays.asList(Skills.Go)));
-        Person six = new Person("6", new ArrayList<Skills>(Arrays.asList(Skills.HTML)));
-        Person seven = new Person("7",  new ArrayList<Skills>(Arrays.asList(Skills.CSS)));
-        Person eight = new Person("8", new ArrayList<Skills>(Arrays.asList(Skills.Go)));
-        Person nine = new Person("9", new ArrayList<Skills>(Arrays.asList(Skills.HTML)));
-        Person ten = new Person("10", new ArrayList<Skills>(Arrays.asList(Skills.Go, Skills.CSS)));
-        Person eleven = new Person("11", new ArrayList<Skills>(Arrays.asList(Skills.dotNet)));
-        Person twelve = new Person("12",  new ArrayList<Skills>(Arrays.asList(Skills.CPlus)));
-        Person thirteen = new Person("13", new ArrayList<Skills>(Arrays.asList(Skills.JavaScript)));
-        Person fourteen = new Person("14",  new ArrayList<Skills>(Arrays.asList(Skills.CSS)));
-        Person fifteen = new Person("15", new ArrayList<Skills>(Arrays.asList(Skills.Go)));
-        Person sixteen = new Person("16", new ArrayList<Skills>(Arrays.asList(Skills.HTML)));
-        Person seventeen = new Person("17",  new ArrayList<Skills>(Arrays.asList(Skills.CSS)));
-        Person eighteen = new Person("18", new ArrayList<Skills>(Arrays.asList(Skills.Go)));
-        Person nineteen = new Person("19", new ArrayList<Skills>(Arrays.asList(Skills.HTML)));
-        Person twenty = new Person("20", new ArrayList<Skills>(Arrays.asList(Skills.Go, Skills.CSS)));
-
-
-        ArrayList<Person> team = new ArrayList<Person>(Arrays.asList(one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty));
-        Schedule schedule = new Schedule(tasks, team);
-             
-        if(schedule.getBlocks().size() != tasks.size()) fail("Not all tasks have been scheduled");
-		else if(!correctTimes(schedule)) fail("Some tasks are not scheduled for the right amount of time");
-		else if(!correctTeamSizes(schedule)) fail("Some tasks do not contain the correct number of people working");
-		else if(!correctTaskAllocation(schedule)) fail("Some tasks are scheduled and do not respect the constraints of previous tasks");
-		else if(!correctSkillAllocation(schedule)) fail("Some tasks do not have team members which have all necesary skills");
-		else if(!correctPeopleAllocation(schedule)) fail("Some people may be scheduled to work for more than one task at once");
-	}
+	
 	
 	//Tests if schedules successfully schedules all tasks but the ones which cause constraints
 	

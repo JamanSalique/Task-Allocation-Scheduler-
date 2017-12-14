@@ -65,16 +65,19 @@ public class CreatePeopleView extends JPanel implements Observer{
 		//Adding Task Name
 		jpCCenter.add(new JLabel("Person Name:"));
 		nameInput = new JTextField();
+		nameInput.setName("personNameInput");
 		jpCCenter.add(nameInput);	
 		
 		//Adding Skills That Person Has
 		jpCCenter.add(new JLabel("Add Skills"));
 		skills = new JList<Skills>(Skills.values());
+		skills.setName("skillsPeople");
 		JScrollPane jspSkills = new JScrollPane(skills);
 		jpCCenter.add(jspSkills);
 		
 		//Create button to create task
 		JButton jbCreate = new JButton("Add Team Member");
+		jbCreate.setName("addTeamMember");
 		
 		controller = new PeopleController(model, nameInput, skills);
 		jbCreate.addActionListener(controller);
@@ -83,6 +86,7 @@ public class CreatePeopleView extends JPanel implements Observer{
 		
 		//Showing all people created
 		people = new JList<String>(model.getPeople());
+		people.setName("people");
 		JScrollPane jspPeople = new JScrollPane(people);
 		jspPeople.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		jpSouth.setLayout(new GridLayout(1, 1));

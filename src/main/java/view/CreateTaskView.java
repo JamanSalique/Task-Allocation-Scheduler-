@@ -83,11 +83,13 @@ public class CreateTaskView extends JPanel implements Observer{
 		//Adding Task Name
 		jpCCenter.add(new JLabel("Task Name:"));
 		nameInput = new JTextField();
+		nameInput.setName("taskNameInput");
 		jpCCenter.add(nameInput);	
 		
 		//Adding Effort Estimate
 		jpCCenter.add(new JLabel("Effort Estimate:"));
 		effortNum = new JSlider(1, 20, 1);
+		effortNum.setName("effortNum");
 		effortNum.setMinorTickSpacing(1);
 		effortNum.setMajorTickSpacing(10);
 		effortNum.setPaintTicks(true);
@@ -98,6 +100,7 @@ public class CreateTaskView extends JPanel implements Observer{
 		//Adding Number Of People
 		jpCCenter.add(new JLabel("Number Of People:"));
 		peopleNum = new JSlider(1, 20, 1);
+		peopleNum.setName("peopleNum");
 		peopleNum.setMinorTickSpacing(1);
 		peopleNum.setMajorTickSpacing(10);
 		peopleNum.setPaintTicks(true);
@@ -119,6 +122,7 @@ public class CreateTaskView extends JPanel implements Observer{
 		
 		//Create button to create task
 		JButton jbCreate = new JButton("Create Task");
+		jbCreate.setName("addTask");
 		taskListener = new TaskListener(model, nameInput, peopleNum, effortNum, skills, taskList);
 		jbCreate.addActionListener(taskListener);
 		jbCreate.setActionCommand("create task");
@@ -126,6 +130,7 @@ public class CreateTaskView extends JPanel implements Observer{
 		
 		//Showing all people created
 		tasks = new JList<String>(model.getInfo());
+		tasks.setName("tasks");
 		JScrollPane jspTasks = new JScrollPane(tasks);
 		jspTasks.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		jspTasks.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);

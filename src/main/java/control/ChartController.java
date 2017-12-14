@@ -19,6 +19,7 @@ public class ChartController implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Control.instantiate();
 		JPanel ganttdemo = new GanttChartGUI("Planning App");
+		ganttdemo.setName("schedule");
 		schedule.add(ganttdemo, BorderLayout.CENTER);
 		schedule.revalidate();
 		schedule.repaint();

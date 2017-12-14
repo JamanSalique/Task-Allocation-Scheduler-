@@ -66,7 +66,7 @@ set CMD_LINE_ARGS=%*
 set CLASSPATH=%APP_HOME%\lib\SEGAgile.jar;%APP_HOME%\lib\jfreechart-1.0.19.jar;%APP_HOME%\lib\jcommon-1.0.23.jar
 
 @rem Execute SEGAgile
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %SEG_AGILE_OPTS%  -classpath "%CLASSPATH%" view.GanttChartGUI %CMD_LINE_ARGS%
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %SEG_AGILE_OPTS%  -classpath "%CLASSPATH%" view.MainWindow %CMD_LINE_ARGS%
 
 :end
 @rem End local scope for the variables with windows NT shell
