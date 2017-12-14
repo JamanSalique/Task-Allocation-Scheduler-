@@ -75,5 +75,9 @@ public class Control {
 		return schedule;
 	}
 	
-	
+	public void reset(){
+		tasks.clear();
+		team.clear();
+		schedule = null;
+	}
 }
