@@ -37,6 +37,9 @@ public class ButtonListener implements ActionListener{
 		case "move right":
 			model.moveRight();
 			break;
+		case "reset":
+			model.reset();
+			break;
 		}
 	}
 

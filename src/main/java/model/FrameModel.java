@@ -29,6 +29,16 @@ public class FrameModel extends Observable{
 		setChanged();
 		notifyObservers();
 	}
+	
+	/**
+	 * Calls the update method in the main window so that
+	 * the user can reset application
+	 */
+	public void reset(){
+		methodNum = 3;
+		setChanged();
+		notifyObservers();
+	}
 
 	/**
 	 * Getter for methodNum
