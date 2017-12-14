@@ -167,6 +167,7 @@ public class MainWindow extends JFrame implements Observer{
 			break;
 		case 3:
 			try {
+				Control.instance().reset();
 				init();
 				this.setVisible(false);
 				this.dispose();
