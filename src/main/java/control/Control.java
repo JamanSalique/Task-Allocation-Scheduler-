@@ -1,4 +1,4 @@
-=package control;
+package control;
 
 import java.util.ArrayList;
 import java.util.Arrays;
