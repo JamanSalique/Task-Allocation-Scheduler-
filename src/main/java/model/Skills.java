@@ -1,5 +1,8 @@
 package model;
-
+/**
+ * This class shows the list of skills a person can have.
+ *
+ */
 public enum Skills {
 	
 	Java, 
@@ -47,6 +50,22 @@ public enum Skills {
 	Coorporate_law,
 	Criminal_law,
 	Mechanical_Engineering,
-	Chemical_Engineering;
+	Chemical_Engineering,
+	Advising,
+	Budgeting,
+	Compiling_Statistics,
+	Construction,
+	Customer_Service,
+	Editing,
+	Human_Resources,
+	Medical_Assistance,
+	Negotiation,
+	Networking,
+	Numerical_Analysis,
+	Sketching,
+	Public_Speaking,
+	Personal_Interaction,
+	Plan_Development
+	;
 	
 }
